@@ -33,8 +33,6 @@ public class Account {
 		this.interestRate = interestRate;
 	}
 	public double calculateInterest() {
-		System.out.println(balance);
-		System.out.println(interestRate);
 		return balance * interestRate * 0.01;
 	}
 	public void deposit(double money) {
@@ -56,6 +54,5 @@ public class Account {
 		} catch (Exception e) {
 			System.out.println("출금 금액이 0보다 적거나 현재 잔액보다 많습니다.");
 		}
-		setBalance(getBalance() - money);
 	}
 }
