@@ -40,17 +40,17 @@ public class Account {
 			if (money < 0) {
 				throw new Exception();
 			}
-			setBalance(getBalance() + money);
+			setBalance(balance + money);
 		} catch (Exception e) {
 			System.out.println("입금 금액이 0보다 적습니다.");
 		}
 	}
 	public void withdraw(double money) {
 		try {
-			if (money < 0 || money > getBalance()) {
+			if (money < 0 || money > balance) {
 				throw new Exception();
 			}
-			setBalance(getBalance() - money);
+			setBalance(balance - money);
 		} catch (Exception e) {
 			System.out.println("출금 금액이 0보다 적거나 현재 잔액보다 많습니다.");
 		}
