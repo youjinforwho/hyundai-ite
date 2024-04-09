@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane fx:controller="javaecho.ClientController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextArea fx:id="textArea" layoutX="18.0" layoutY="19.0" prefHeight="319.0" prefWidth="563.0" />
+      <Button fx:id="sendBtn" layoutX="456.0" layoutY="346.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="86.0" text="전송" />
+      <Button fx:id="endBtn" layoutX="551.0" layoutY="346.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="28.0" text="끝" />
+      <TextField fx:id="textField" layoutX="18.0" layoutY="346.0" prefHeight="45.0" prefWidth="430.0" />
+   </children>
+</Pane>
