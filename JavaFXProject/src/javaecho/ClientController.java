@@ -5,6 +5,7 @@ import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -16,36 +17,65 @@ public class ClientController implements Initializable {
 	@FXML private Button sendBtn;
 	@FXML private Button endBtn;
 	@FXML private TextField textField;
-	protected Socket socket;
+	private Socket socket;
+	private PrintWriter out;
 	
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		try {
-			//서버로의 접속 시도
-			Socket s = new Socket("localhost", 9999);
-			System.out.println("접속 성공!!");
-			sendBtn.setOnAction(e -> {
-				PrintWriter out;
+		Thread thread = new Thread() {
+			public void run() {
 				try {
-					out = new PrintWriter(s.getOutputStream());
-					out.println(textField.getText());
-					out.flush();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+					socket = new Socket("localhost", 9999);
+					System.out.println("서버 접속에 성공하였습니다.");
+					receiveMessage();
+				}catch (Exception e) {
+					if(!socket.isClosed()) {
+						System.out.println("서버 접속에 실패하였습니다.");
+						Platform.exit();
+					}
 				}
-				textArea.appendText(textField.getText());
-				textField.clear();
-			});
-			endBtn.setOnAction(e -> {
-				try {
-					s.close();
-				} catch (IOException e1) {
-					e1.printStackTrace();
-				}
-			});
-		} catch(Exception e) {}	
-		
+			}
+		};
+		thread.start();
+		sendBtn.setOnAction(e -> {
+			this.sendMessage();
+		});
+		endBtn.setOnAction(e -> {
+			try {
+				textArea.appendText("대화가 종료되었습니다");
+				socket.close();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		});		
 	}
 	
+	public void receiveMessage() {
+		while(true) {
+			try {
+				BufferedReader br = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+				String msg = br.readLine();
+				System.out.println(msg);
+				Platform.runLater(() -> {
+					textArea.appendText(msg + "\n");
+				});
+			} catch(Exception e) {
+				
+			}
+		}
+	}
+	
+	public void sendMessage() {
+		Thread thread = new Thread() {
+			public void run() {
+				try {
+					out = new PrintWriter(socket.getOutputStream());
+					out.println(textField.getText());
+					out.flush();
+					textField.clear();
+				} catch (Exception e) {}
+			}
+		};
+		thread.start();
+	}
 }
