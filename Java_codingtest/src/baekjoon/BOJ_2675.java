@@ -10,10 +10,13 @@ public class BOJ_2675 {
 			StringBuilder sb = new StringBuilder();
 			int R = sc.nextInt();
 			String S = sc.next();
-			for (int j = 0; j < R; j++) {
-				sb.append(S);
+			String[] arr = S.split("");
+			for (int idx = 0; idx < arr.length; idx++) {
+				for (int iter = 0; iter < R; iter++)	
+					sb.append(arr[idx]);
 			}
 			System.out.println(sb.toString());
+			
 		}
 	}
 	

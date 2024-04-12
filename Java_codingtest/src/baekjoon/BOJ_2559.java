@@ -17,6 +17,7 @@ public class BOJ_2559 {
 		int temp;
 		if (K == N) System.out.println(arr[N - 1]);
 		else if (K == 1) {
+			if (arr[0] > max) max = arr[0];
 			for (int i = 1; i < N; i++) {
 				temp = arr[i] - arr[i - 1];
 				if (temp > max) max = temp;
@@ -24,8 +25,12 @@ public class BOJ_2559 {
 			System.out.println(max);
 		}
 		else {
-			for (int i = K; i < N; i++) {
-				temp = arr[i] - arr[i - K];
+			for (int i = K - 1; i < N; i++) {
+				if (i == K - 1) {
+					temp = arr[i];
+				} else {
+					temp = arr[i] - arr[i - K];
+				}
 				if (temp > max) max = temp;
 			}
 			System.out.println(max);
