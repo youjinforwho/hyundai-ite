@@ -22,9 +22,9 @@ public class BOJ_20920 {
 				}
 			}
 		}
-		Map<String, Integer> sortedMap = new TreeMap<>(new Comparator<String>() {
+		List<String> list = Collections.sort(map, new Comparator<String, Integer>() {
 			@Override
-			public int compare(String o1, String o2) {
+			public int compare(Map.Entry<String, Integer> o1, Map.Entry<String, Integer> o2) {
 				if (map.get(o1) != map.get(o2)) return (map.get(o1) - map.get(o2));
 				else {
 					if (o1.length() != o2.length()) {
@@ -34,9 +34,9 @@ public class BOJ_20920 {
 					}
 				}
 			}
-			
 		});
-		sortedMap.putAll(map);
-		for (String s: sortedMap.keySet()) System.out.println(s);
+		for(Map.Entry<String, Integer> entry: list) {
+			System.out.println(entry.getKey());
+		}
 	}
 }

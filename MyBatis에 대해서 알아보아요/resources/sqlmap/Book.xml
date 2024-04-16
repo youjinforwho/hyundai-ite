@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="example.mybook">
+	<select id="selectByISBNHashMap" parameterType="String"
+		resultType="HashMap">
+		<![CDATA[
+			SELECT bisbn, btitle, bprice, bauthor
+			FROM book
+			WHERE bisbn = #{bisbn}	
+		]]>
+	</select>
+	
+	<select id="selectAllHashMap"
+		resultType="HashMap">
+		<![CDATA[
+			SELECT bisbn, btitle, bprice, bauthor
+			FROM book
+		]]>
+	</select>
+
+	<select id="selectByISBNBookVO" parameterType="String"
+		resultType="BookVO">
+		<![CDATA[
+			SELECT bisbn, btitle, bprice, bauthor
+			FROM book
+			WHERE bisbn = #{bisbn}
+		]]>
+	</select>
+	<resultMap type="BookVO" id="result_1">
+		<result property="bsibn" column="my_isbn" jdbcType="VARCHAR" javaType="String"/>
+		<result property="btitle" column="my_title"/>
+		<result property="bprice" column="my_price"/>
+		<result property="bauthor" column="my_author"/>
+	</resultMap>
+	<select id="selectByISBNResultMap" parameterType="String"
+		resultMap="result_1">
+		<![CDATA[
+			SELECT bisbn AS my_idbn, 
+				   btitle AS my_title,
+				   bprice AS my_price, 
+				   bauthor AS my_author
+			FROM book
+			WHERE bisbn = #{bisbn}
+		]]>
+	</select>
+	
+	<update id="titleUpdate" parameterType="BookVO">
+		<![CDATA[
+			UPDATE book
+			SET btitle = #{btitle}
+			WHERE bisbn = #{bisbn}
+		]]>
+	</update>
+</mapper>
