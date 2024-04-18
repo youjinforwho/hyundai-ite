@@ -3,23 +3,28 @@
 <mapper namespace="library.book">
 
 	<select id="selectFromKeywordBookVO" parameterType="String"
-		resultType="HashMap">
+		resultType="BookVO">
 		<![CDATA[
 			SELECT bisbn, btitle, bprice, bauthor
 			FROM book
-			WHERE bisbn LIKE CONCAT('%', #{keyword}, '%')
+			WHERE btitle LIKE CONCAT('%', #{keyword}, '%')
 		]]>
 	</select>
 	
-	<select id="selectByISBNHashMap" parameterType="String"
-		resultType="HashMap">
+	<delete id="deleteFromKeyword" parameterType="String">
 		<![CDATA[
-			SELECT bisbn, btitle, bprice, bauthor
+			DELETE
 			FROM book
-			WHERE bisbn = #{bisbn}	
+			WHERE bisbn = #{keyword}	
 		]]>
-	</select>
-	
+	</delete>
+	<update id="titleUpdate" parameterType="BookVO">
+		<![CDATA[
+			UPDATE book
+			SET btitle = #{btitle}
+			WHERE bisbn = #{bisbn}
+		]]>
+	</update>
 	<select id="selectAllHashMap"
 		resultType="HashMap">
 		<![CDATA[
@@ -54,11 +59,4 @@
 		]]>
 	</select>
 	
-	<update id="titleUpdate" parameterType="BookVO">
-		<![CDATA[
-			UPDATE book
-			SET btitle = #{btitle}
-			WHERE bisbn = #{bisbn}
-		]]>
-	</update>
 </mapper>

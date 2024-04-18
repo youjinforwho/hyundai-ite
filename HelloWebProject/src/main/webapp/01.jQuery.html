@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<!-- jQuery를 이용하려면 library의 CDN을 포함시키면 돼요 -->
+		<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+		<!-- jQuery를 사용하는 화면을 제어하기 위한 JavaScript code를 작성해야 해요 -->
+		<!-- 코드를 HTML 파일 내에 직접 구현하는 것은 좋지 X -> 파일을 따로 빼서 관리 -->
+		<script src="js/01.jQuery.js">
+			var myVar = 10
+			let haha = 200
+		</script>
+	</head>
+	<body>
+		<div id="myDiv">여기는 div 영역</div>
+		<p id="myP" class="myStyle">여기는 p태그 영역</p>
+		<br><br>
+		<div>
+			<ul id="myUl">
+				<li>호랑이</li>
+				<li id="myLi">고양이</li>
+				<li class="myStyle">강아지</li>
+			</ul>
+		</div>
+		<ol>
+			<li>홍길동</li>
+			<li>신사임당</li>
+		</ol>
+		<input type="button" value="클릭클릭!!" onclick="myFunc()">
+	</body>
+</html>

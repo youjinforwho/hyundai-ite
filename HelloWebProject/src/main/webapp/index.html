@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<!-- 기존에는 DOCTYPE이 상당히 복잡했는데 HTML5로 넘어오면서
+	간략하게 표현하는 걸로 바뀌었어요 -->
+<html>
+	<!-- head는 설정 부분이 나와요 -->
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+	</head>
+	<!-- 실제 document의 내용은 body 부분에 나오게 돼요 -->	
+	<body>
+		<!-- HTML은 Element로 구성됨 -->
+		<!-- Element는 tag와 해당 tag의 속성(attribute), 내용(contents)을 갖고 있음 -->
+		<!-- 각 tag마다 사용할 수 있는 attribute는 정해져있음 -->
+		<div id="myDiv">안녕하세요</div> 
+		<!-- 그런데 만약 내가 정해져있는 attribute가 아니라 임의의 속성을 사용하고 싶다면? -->
+		<!-- 사용자 정의 속성 앞에는 'data-'를 앞에 붙여 사용 -->
+		<div id="myDiv" data-author="홍길동">새로운 속성을 사용해 보아요</div>
+		<!-- Element는 크게 2가지 종류가 있음
+			Block Level Element와 Inline Element가 있음
+			Block은 browser 화면에 표현될 때 Element가 한 line을 차지
+			Inline은 해당 tag가 감싸고 있는 데이터를 표현할 수 있는 영역만 차지
+		 -->
+		<!-- 대표적인 Inline Element는 span -->
+		<span>이것은 소리 없는 아우성</span>
+		<span>span은 inline</span>
+		<input type="button"></input>
+	</body>
+</html>

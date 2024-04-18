@@ -23,15 +23,46 @@ public class BookService {
 	//Book 조회 메서드
 	public List<BookVO> searchBookByKeyword(String keyword) {
 		SqlSession session = factory.openSession();
-		List<BookVO> result = dao.select(keyword, session);
+		List<BookVO> result = null;
+		try {
+			result = dao.select(keyword, session);
+		} catch(Exception e) {
+			session.rollback();
+		} finally {
+			session.commit();
+			session.close();
+		}
+		return result;
+	}
+	
+	//Book 삭제 메서드
+	public int deleteBookByCliked(BookVO selectedItem) {
+		SqlSession session = factory.openSession();
+		int result = 0;
+		try {
+			result = dao.delete(selectedItem, session);
+		} catch(Exception e) {
+			session.rollback();
+		} finally {
+			session.commit();
+			session.close();
+		}
 		return result;
 	}
 	
 	//Book 수정 메서드
+	public int updateBookByTitle(BookVO selectedItem) {
+		SqlSession session = factory.openSession();
+		int result = 0;
+		try {
+			result = dao.update(selectedItem, session);
+		} catch(Exception e) {
+			session.rollback();
+		} finally {
+			session.commit();
+			session.close();
+		}
+		return result;
+	}
 	
-	//Book 삭제 메서드
-//	public List<BookVO> deleteSelectedBook(String keyword) {
-//		List<BookVO> result = dao.delete(keyword);
-//		return result;
-//	}
 }

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>Insert title here</title>
+		<!-- jQuery를 이용하려면 library의 CDN을 포함시키면 돼요 -->
+		<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+		<!-- jQuery를 사용하는 화면을 제어하기 위한 JavaScript code를 작성해야 해요 -->
+		<!-- 코드를 HTML 파일 내에 직접 구현하는 것은 좋지 X -> 파일을 따로 빼서 관리 -->
+		<script src="js/03.jQuery.js">
+			var myVar = 10
+			let haha = 200
+		</script>
+	</head>
+	<body>
+		<div>
+			<h1>취미는 무엇인가요?</h1>
+			<input type="checkbox"><span>운동</span>
+			<br>
+			<input type="checkbox"><span>독서</span>
+			<br>
+			<input type="checkbox"><span>노래</span>
+		</div>
+		<br>
+		<input type="button" value="서버로 전송" onclick="myFunc()">
+	</body>
+</html>
