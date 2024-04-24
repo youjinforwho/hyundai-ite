@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BoardVO {
-	private String board_num;
+	private int board_num;
 	private String board_id;
 	private String board_subject;
 	private String board_content;
-	private String date;
+	private String board_date;
 }

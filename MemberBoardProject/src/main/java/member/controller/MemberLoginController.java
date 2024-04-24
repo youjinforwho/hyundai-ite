@@ -1,6 +1,7 @@
 package member.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -10,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import member.service.MemberLoginService;
+import board.service.BoardService;
+import board.vo.BoardVO;
+import member.service.MemberService;
 import member.vo.MemberVO;
 
 /**
@@ -36,18 +39,19 @@ public class MemberLoginController extends HttpServlet {
 		MemberVO vo = new MemberVO();
 		vo.setMember_id(id);
 		vo.setMember_pw(password);
-		MemberLoginService service = new MemberLoginService();
-		MemberVO memberInfo = service.checkPasswordIsTrue(vo);
+
+		MemberService memberService = new MemberService();
+		MemberVO memberInfo = memberService.checkPasswordIsTrue(vo);
 		
-		if (memberInfo != null) {
-			HttpSession session = request.getSession(true);
-			session.setAttribute("memberInfo", memberInfo);
-			RequestDispatcher rd = request.getRequestDispatcher("/board/board_view.jsp");
-			rd.forward(request, response);
-		} else {
-			RequestDispatcher rd = request.getRequestDispatcher("/member/login.jsp");
-		}
+		HttpSession session = request.getSession(true);
+		session.setAttribute("memberInfo", memberInfo);
+		BoardService boardService = new BoardService();
+		List<BoardVO> boardList = boardService.updateBoardList();
+		request.setAttribute("boardList", boardList);
 		
+		RequestDispatcher rd = request.getRequestDispatcher("/board/board_view.jsp");
+		rd.forward(request, response);
+
 	}
 
 }

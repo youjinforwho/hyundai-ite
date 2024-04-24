@@ -9,11 +9,11 @@ import member.dao.MemberDAO;
 import member.vo.MemberVO;
 import mybatis.MyBatisConnectionFactory;
 
-public class MemberLoginService {
+public class MemberService {
 	private SqlSessionFactory factory;
 	private MemberDAO dao;
 	
-	public MemberLoginService() {
+	public MemberService() {
 		this.factory = MyBatisConnectionFactory.getSqlSessionFactory();
 		dao = new MemberDAO(factory);
 	}
@@ -26,6 +26,22 @@ public class MemberLoginService {
 		} catch(Exception e) {
 			
 		} finally {
+			session.close();
+		}
+		return result;
+	}
+	
+	public int assignUserToMember(MemberVO memberInfo) {
+		SqlSession session = factory.openSession();
+		int result = 0;
+		try {
+			result = dao.insert(memberInfo, session);
+		} catch(Exception e) {
+			System.out.println("에러");
+			System.out.println(e);
+			session.rollback();
+		} finally {
+			session.commit();
 			session.close();
 		}
 		return result;

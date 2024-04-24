@@ -22,4 +22,10 @@ public class MemberDAO {
 		
 		return result;
 	}
+
+	public int insert(MemberVO memberInfo, SqlSession session) throws Exception {
+		int result = session.insert("member.insertMemberInfo", memberInfo);
+		
+		return result;
+	}
 }

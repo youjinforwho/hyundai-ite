@@ -15,13 +15,14 @@
 
     <!-- Custom fonts for this template-->
     <link href="../resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <link href="resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="../resources/css/sb-admin-2.min.css" rel="stylesheet">
-
+	<link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
 </head>
 
 <body class="bg-gradient-primary">
@@ -56,27 +57,27 @@
                                         <div class="form-group">
                                             <div class="custom-control custom-checkbox small">
                                                 <input type="checkbox" class="custom-control-input" id="customCheck">
-                                                <label class="custom-control-label" for="customCheck">Remember
-                                                    Me</label>
+                                                <label class="custom-control-label" for="customCheck">비밀번호 기억하기
+                                                </label>
                                             </div>
                                         </div>
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
-                                            Login
+                                            로그인
                                         </button>
                                         <hr>
                                         <a href="../../java/board_view.jsp" class="btn btn-google btn-user btn-block">
-                                            <i class="fab fa-google fa-fw"></i> Login with Google
+                                            <i class="fab fa-google fa-fw"></i> 구글계정으로 로그인
                                         </a>
                                         <a href="../board/board_view.jsp" class="btn btn-facebook btn-user btn-block">
-                                            <i class="fab fa-facebook-f fa-fw"></i> Login with Facebook
+                                            <i class="fab fa-facebook-f fa-fw"></i> 페이스북 계정으로 로그인
                                         </a>
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" href="forgot-password.html">Forgot Password?</a>
+                                        <a class="small" href="forgot-password.html">패스워드 잊음</a>
                                     </div>
                                     <div class="text-center">
-                                        <a class="small" href="join.jsp">Create an Account!</a>
+                                        <a class="small" href="join.jsp">계정이 없으신가요? 회원가입하기</a>
                                     </div>
                                 </div>
                             </div>
@@ -92,14 +93,15 @@
 
     <!-- Bootstrap core JavaScript-->
     <script src="../resources/vendor/jquery/jquery.min.js"></script>
+    <script src="resources/vendor/jquery/jquery.min.js"></script>
     <script src="../resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
+	<script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- Core plugin JavaScript-->
     <script src="../resources/vendor/jquery-easing/jquery.easing.min.js"></script>
-
+	<script src="resources/vendor/jquery-easing/jquery.easing.min.js"></script>
     <!-- Custom scripts for all pages-->
     <script src="../resources/js/sb-admin-2.min.js"></script>
-
+	<script src="resources/js/sb-admin-2.min.js"></script>
 </body>
 
 </html>

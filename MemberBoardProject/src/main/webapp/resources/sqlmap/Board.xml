@@ -2,14 +2,41 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
 <mapper namespace="board">
 
-	<select id="selectByKeyword" parameterType="BoardBVO"
+	<insert id="insertNewBoard" parameterType="BoardVO">
+		<![CDATA[
+			INSERT INTO
+			board (board_id, board_subject, board_content, board_date)
+			VALUES (#{board_id}, #{board_subject}, #{board_content}, #{board_date})
+		]]>	
+	</insert>
+	<select id="updateNewBoard"
 		resultType="BoardVO">
 		<![CDATA[
-			SELECT bisbn, btitle, bprice, bauthor
-			FROM book
-			WHERE btitle LIKE CONCAT('%', #{btitle}, '%')
-			AND bprice < ${bprice}
+			SELECT *
+			FROM board
 		]]>
 	</select>
-
+	<select id="searchDetailView" parameterType="int"
+		resultType="BoardVO">
+		<![CDATA[
+			SELECT *
+			FROM board
+			WHERE board_num = ${board_num}
+		]]>
+	</select>
+	<delete id="deleteBoardContent" parameterType="int">
+		<![CDATA[
+			DELETE
+			FROM board
+			WHERE board_num = ${board_num}
+		]]>
+	</delete>
+	<update id="updateBoardContent" parameterType="BoardVO">
+		<![CDATA[
+			UPDATE board
+			SET board_subject = #{board_subject},
+			    board_content = #{board_content}
+			WHERE board_num = ${board_num}
+		]]>
+	</update>
 </mapper>

@@ -1,9 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page import="member.vo.MemberVO, board.vo.BoardVO" language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="member.vo.MemberVO" %>
-<%@ page import="board.vo.BoardVO" %>
-<%@ page import="java.util.*" %>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -19,25 +15,22 @@
 
     <!-- Custom fonts for this template -->
     <link href="resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link href="../resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link
         href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
         rel="stylesheet">
 
     <!-- Custom styles for this template -->
     <link href="resources/css/sb-admin-2.min.css" rel="stylesheet">
-	<link href="../resources/css/sb-admin-2.min.css" rel="stylesheet">
-	
+
     <!-- Custom styles for this page -->
     <link href="resources/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
-	<link href="../resources/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
 </head>
 
 <body id="page-top">
 	<%
 		MemberVO memberInfo = (MemberVO)session.getAttribute("memberInfo");
-    	System.out.println(memberInfo);
-    	List<BoardVO> vo = (List<BoardVO>)request.getAttribute("boardList");
+    	BoardVO boardDetail = (BoardVO)request.getAttribute("boardDetail");
 	%>
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -89,12 +82,12 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=memberInfo.getMember_id() %>님, 환영합니다!</span>
                                 <img class="img-profile rounded-circle"
-                                    src="resources/img/undraw_profile.jpg">
+                                    src="../resources/img/undraw_profile.jpg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="../member/profile.jsp">
+                                <a class="dropdown-item" href="http://localhost:8080/boardweb/profile">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     내 프로필
                                 </a>
@@ -116,55 +109,28 @@
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">게시판</h1>
-					<a href="http://localhost:8080/boardweb/board/board_create.jsp">게시글 작성</a>			
+					<a href="http://localhost:8080/boardweb/board/board_view.jsp">게시글 목록으로 가기</a>			
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">게시글 목록</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">게시글 수정</h6>
+                            <div style="padding: 1.25rem; text-align: right">
+                            id: <%=boardDetail.getBoard_id() %>마지막으로 수정한 날짜: <%=boardDetail.getBoard_date() %>board_id : <%=boardDetail.getBoard_num() %>
+                            </div>
                         </div>
+                        
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                        	<th>글 번호</th>
-                                            <th>글 제목</th>
-                                            <th>아이디</th>
-                                            <th>작성 날짜</th>
-                                        </tr>
-                                    </thead>
-                                    <tfoot>
-                                        <tr>
-                                        	<th>글 번호</th>
-                                            <th>글 제목</th>
-                                            <th>아이디</th>
-                                            <th>작성 날짜</th>
-                                        </tr>
-                                    </tfoot>
-                                    <tbody>
-                                    	<% 
-                                    	int idx = 1;
-                                    	if (vo != null) {
-                                    		for (BoardVO o : vo) {
-                                    			String boardSubject = o.getBoard_subject();
-                                    			String boardId = o.getBoard_id();
-                                    			String boardDate = o.getBoard_date();
-                                    			int boardNum = o.getBoard_num();
-    									%>
-                                        <tr>
-                                        	<td><%=idx%></td>
-                                            <td><a href="http://localhost:8080/boardweb/detail?param1=<%=boardNum%>">
-                                            <%=boardSubject %></a></td>
-                                            <td><%=boardId %></td>
-                                            <td><%=boardDate %></td>
-                                        </tr>
-                                    	<%
-                                    		idx+=1;
-                                    		}
-                                    	}
-                                    	%>
-                                    </tbody>
-                                </table>
+                            	<form class="table table-bordered" action="http://localhost:8080/boardweb/update" method="post">
+                            	<input type="hidden" name="boardNum" value="<%=boardDetail.getBoard_num() %>">
+                                <h6 class="m-0 font-weight-bold text-primary">제목 수정</h6><br>
+                                <input type="text" id="boardSubject" placeholder="<%=boardDetail.getBoard_subject() %>"
+                                            name="boardSubject" style="width:1000px;height:50px; padding: 1.25rem;"><br><br>
+                                <h6 class="m-0 font-weight-bold text-primary">내용 수정</h6><br>
+                                <input type="text" id="boardContent" placeholder="<%=boardDetail.getBoard_content() %>"
+                                            name="boardContent" style="width:1000px;height:300px; padding: 1.25rem;"><br><br>
+                                <button type="submit">수정</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -202,7 +168,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">로그아웃 하시겠습니까?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
@@ -210,7 +176,7 @@
                 <div class="modal-body">현재 세션을 종료할 준비가 된 경우 아래 "로그아웃"을 선택합니다.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">취소</button>
-                    <a class="btn btn-primary" onClick="location.href='/boardweb/logout'">로그아웃</a>
+                    <a class="btn btn-primary" href="../member/login.jsp">로그아웃</a>
                 </div>
             </div>
         </div>
@@ -218,27 +184,21 @@
 
     <!-- Bootstrap core JavaScript-->
     <script src="resources/vendor/jquery/jquery.min.js"></script>
-    <script src="../resources/vendor/jquery/jquery.min.js"></script>
     <script src="resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script src="../resources/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	
+
     <!-- Core plugin JavaScript-->
     <script src="resources/vendor/jquery-easing/jquery.easing.min.js"></script>
-    <script src="../resources/vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
     <script src="resources/js/sb-admin-2.min.js"></script>
-    <script src="../resources/js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
     <script src="resources/vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="../resources/vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="reosurces/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-	<script src="../reosurces/vendor/datatables/dataTables.bootstrap4.min.js"></script>
-	
+
     <!-- Page level custom scripts -->
     <script src="resources/js/demo/datatables-demo.js"></script>
-	<script src="../resources/js/demo/datatables-demo.js"></script>
+
 </body>
 
 </html>

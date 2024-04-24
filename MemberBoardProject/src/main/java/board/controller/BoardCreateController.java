@@ -1,30 +1,33 @@
 package board.controller;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import board.vo.BoardVO;
-import book.service.BookService;
-import book.vo.BookVO;
+import member.vo.MemberVO;
+import board.service.BoardService;
 
 /**
  * Servlet implementation class BookSearchServlet
  */
-@WebServlet("/board")
-public class BoardFrontController extends HttpServlet {
+@WebServlet("/create")
+public class BoardCreateController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardFrontController() {
+    public BoardCreateController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -44,39 +47,36 @@ public class BoardFrontController extends HttpServlet {
 		//1. 입력받고(Controller의 역할)
 		//	 일반적으로 입력을 받아서 VO로 만들어요
 		// 	 Post방식으로 한글이 전달될 때 Encoding처리를 해줘야 함
+		HttpSession session = request.getSession(true);
 		request.setCharacterEncoding("UTF-8");
-		String keyword = request.getParameter("keyword");
-		String price = request.getParameter("price");
-		BoardVO vo = new BoardVO();
-		vo.setBtitle(keyword);
-		vo.setBprice(Integer.parseInt(price));
+		String boardSubject = request.getParameter("boardSubject");
+		String boardContent = request.getParameter("boardContent");
+		MemberVO memberInfo = (MemberVO)session.getAttribute("memberInfo");
 		
-		
-		//2. 로직처리해서(Service에게 위임)
-		BoardCreateService service = new BoardCreateService();
-		List<BoardVO> list = service.getBooksByKeyword(vo);
+		LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String formattedDateTime = now.format(formatter);
+      
+		BoardVO board = new BoardVO();
+		board.setBoard_id(memberInfo.getMember_id());
+		board.setBoard_subject(boardSubject);
+		board.setBoard_content(boardContent);
+		board.setBoard_date(formattedDateTime);
+        
+        //2. 로직처리해서(Service에게 위임)
+		BoardService service = new BoardService();
+		int result = service.createNewBoard(board);
+		List<BoardVO> boardList = service.updateBoardList();
+		request.setAttribute("boardList", boardList);
 		
 		//3. 결과 출력
 		//	 서비스로부터 결과를 받아서(일반적으로 VO나 List<VO>의 형태
 		//   Servlet(Controller)가 출력을 담당하지 않고
 		//   View의 역할을 수행하는 JSP에게 결과데이터를 넘겨줘요
 		//   JSP(View)가 클라이언트에게 결과를 출력!
-		response.setContentType("text/html; charset=utf-8");
-		PrintWriter out = response.getWriter();
-		
-		out.println("<html>");
-		out.println("<head></head>");
-		out.println("<body><h1>검색결과입니다</h1>");
-		out.println("<h2> 검색키워드: "+keyword+"</h2>");
-		out.println("<h2> 검색가격: "+price+"</h2>");
-		out.println("<ul>");
-		for (BoardVO b: list) {
-			out.println("<li>"+ b +"</li>");
-		}
-		out.println("</ul>");
-		out.println("</body></html>");
-		out.flush();
-		out.close();
+		RequestDispatcher rd = request.getRequestDispatcher("/board/board_view.jsp");
+		rd.forward(request, response);
+
 	}
 
 }

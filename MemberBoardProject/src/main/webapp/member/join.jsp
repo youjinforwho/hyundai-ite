@@ -52,21 +52,22 @@
                                 </div>
                                 <div class="form-group">
                                     <input type="text" class="form-control form-control-user" id="exampleInputEmail"
-                                        name="memberId" placeholder="아이디 입력">
-                                    <label for="male">남성:</label>
-							        <input type="radio" id="male" name="gender" value="male">
+                                        name="age" placeholder="나이 입력">
+              						<label for="male">남성:</label>
+							        <input type="radio" class="form-control form-control-user" id="male" name="gender" value="male">
 							        <label for="female">여성:</label>
-							        <input type="radio" id="female" name="gender" value="female">
+							        <input type="radio" class="form-control form-control-user" id="female" name="gender" value="female">
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" class="form-control form-control-user"
-                                            name="password" id="exampleInputPassword" placeholder="패스워드 입력">
+                                        <input type="text" class="form-control form-control-user"
+                                            name="memberId" id="exampleInputPassword" placeholder="아이디 입력">
                                     </div>
                                     <div class="col-sm-6">
                                         <input type="password" class="form-control form-control-user"
-                                            name="repeatPassword" id="exampleRepeatPassword" placeholder="패스워드 재입력">
+                                            name="password" id="exampleRepeatPassword" placeholder="패스워드 입력">
                                     </div>
+                                    
                                 </div>
                                 <button type="submit" class="btn btn-primary btn-user btn-block">
                                     등록하기

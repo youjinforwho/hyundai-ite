@@ -11,5 +11,12 @@
 			AND member_pw = #{member_pw}
 		]]>
 	</select>
+	<insert id="insertMemberInfo" parameterType="MemberVO">
+		<![CDATA[
+			INSERT INTO
+			member (member_id, member_pw, member_name, member_age, member_gender)
+			VALUES (#{member_id}, #{member_pw}, #{member_name}, ${member_age}, #{member_gender})
+		]]>	
+	</insert>	
 
 </mapper>
