@@ -22,10 +22,20 @@ public class MemberDAO {
 		
 		return result;
 	}
-
+	public MemberVO select(int memberId, SqlSession session) throws Exception {
+		MemberVO result = session.selectOne("member.searchMemberProfile", memberId);
+		return result;
+	}
+	
 	public int insert(MemberVO memberInfo, SqlSession session) throws Exception {
 		int result = session.insert("member.insertMemberInfo", memberInfo);
 		
+		return result;
+	}
+
+	public int update(MemberVO memberInfo, SqlSession session) {
+		int result = 0;
+		result = session.update("member.updateMemberProfile", memberInfo);
 		return result;
 	}
 }

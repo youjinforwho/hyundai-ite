@@ -1,4 +1,4 @@
-package board.controller;
+package member.controller;
 
 import java.io.IOException;
 import java.util.List;
@@ -11,22 +11,21 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import board.service.BoardService;
-import board.vo.BoardVO;
 import comment.service.CommentService;
-import comment.vo.CommentVO;
+import member.service.MemberService;
+import member.vo.MemberVO;
 
 /**
- * Servlet implementation class BoardDetailViewController
+ * Servlet implementation class MemberProfileController
  */
-@WebServlet("/detail")
-public class BoardDetailViewController extends HttpServlet {
+@WebServlet("/profile")
+public class MemberProfileController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public BoardDetailViewController() {
+    public MemberProfileController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -37,21 +36,16 @@ public class BoardDetailViewController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(true);
 		request.setCharacterEncoding("UTF-8");
-		int boardNum = Integer.parseInt(request.getParameter("param1"));
+		int memberId = Integer.parseInt(request.getParameter("param1"));
 		
-		//board 정보
-		BoardVO boardDetail = new BoardVO();
-		BoardService boardService = new BoardService();
+		//member 정보
+		MemberVO memberInfo = new MemberVO();
+		MemberService memberService = new MemberService();
 		
-		boardDetail = boardService.viewBoardDetail(boardNum);
-		
-		//comment 정보
-		CommentService commentService = new CommentService();
-		List<CommentVO> commentList = commentService.findAllComments(boardNum);
+		memberInfo = memberService.viewMemberProfile(memberId);
 
-		request.setAttribute("boardDetail", boardDetail);
-		request.setAttribute("commentList", commentList);
-		RequestDispatcher rd = request.getRequestDispatcher("/board/board_detail.jsp");
+		request.setAttribute("memberInfo", memberInfo);
+		RequestDispatcher rd = request.getRequestDispatcher("/member/member_profile.jsp");
 		rd.forward(request, response);
 	}
 
@@ -59,7 +53,8 @@ public class BoardDetailViewController extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		// TODO Auto-generated method stub
+		doGet(request, response);
 	}
 
 }

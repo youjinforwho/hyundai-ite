@@ -85,7 +85,7 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="http://localhost:8080/boardweb/logout">
+                                <a class="dropdown-item" href="http://localhost:8080/boardweb/profile">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     내 프로필
                                 </a>
@@ -107,7 +107,7 @@
 
                     <!-- Page Heading -->
                     <h1 class="h3 mb-2 text-gray-800">게시판</h1>
-					<a href="http://localhost:8080/boardweb/board/board_view.jsp">게시글 목록으로 가기</a>			
+					<a href="http://localhost:8080/boardweb/list">게시글 목록으로 가기</a>			
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">

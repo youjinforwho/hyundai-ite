@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="comment">
+	<insert id="insertNewComment" parameterType="CommentVO">
+		<![CDATA[
+			INSERT INTO
+			comment (comment_id, board_num, comment_content, comment_date)
+			VALUES (#{comment_id}, ${board_num}, #{comment_content}, #{comment_date})
+		]]>	
+	</insert>
+
+	<select id="findAllComments" parameterType="int"
+		resultType="CommentVO">
+		<![CDATA[
+			SELECT *
+			FROM comment
+			WHERE board_num = ${board_num}
+		]]>
+	</select>
+
+	<select id="searchDetailComments" parameterType="int"
+		resultType="CommentVO">
+		<![CDATA[
+			SELECT *
+			FROM comment
+			WHERE comment_num = ${comment_num}
+		]]>
+	</select>
+	
+	<update id="updateCommentContent" parameterType="commentVO">
+		<![CDATA[
+			UPDATE comment
+			SET comment_content = #{comment_content}
+			WHERE comment_num = ${comment_num}
+		]]>
+	</update>
+	
+	<delete id="deleteCommentContent" parameterType="int">
+		<![CDATA[
+			DELETE
+			FROM comment
+			WHERE comment_num = ${comment_num}
+		]]>
+	</delete>
+</mapper>

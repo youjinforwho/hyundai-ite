@@ -1,10 +1,16 @@
 <%@ page import="member.vo.MemberVO, board.vo.BoardVO" language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.util.*" %>
+<%@ page import="comment.vo.CommentVO" %>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
-
+	<!-- jQuery에 대한 CDN -->
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+	<script src="resources/js/comment-update.js"></script>
+	<script src="resources/js/comment-delete.js"></script>
+	
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -31,6 +37,7 @@
 	<%
 		MemberVO memberInfo = (MemberVO)session.getAttribute("memberInfo");
     	BoardVO boardDetail = (BoardVO)request.getAttribute("boardDetail");
+    	List<CommentVO> commentList = (List<CommentVO>)request.getAttribute("commentList");
 	%>
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -87,7 +94,7 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="http://localhost:8080/boardweb/profile">
+                                <a class="dropdown-item" href="http://localhost:8080/boardweb/profile?param1=<%=memberInfo.getMember_id()%>">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     내 프로필
                                 </a>
@@ -115,20 +122,86 @@
                         <div class="card-header py-3">
                             <a href="http://localhost:8080/boardweb/check?param1=<%=boardDetail.getBoard_id()%>&param2=<%=boardDetail.getBoard_num() %>">수정</a>
                             <a href="http://localhost:8080/boardweb/delete?param1=<%=boardDetail.getBoard_id()%>&param2=<%=boardDetail.getBoard_num() %>">삭제</a>
-                            <div style="padding: 1.25rem; text-align: right">
-                            id: <%=boardDetail.getBoard_id() %>마지막으로 수정한 날짜: <%=boardDetail.getBoard_date() %>board_id : <%=boardDetail.getBoard_num() %>
-                            </div>
+                            <a style="padding: 1.25rem; text-align: right">
+                            id: <%=boardDetail.getBoard_id() %>&ensp; 마지막으로 수정한 날짜: <%=boardDetail.getBoard_date() %>&ensp;
+                            </a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <h6 class="m-0 font-weight-bold text-primary">게시글 제목</h6><br>
+                                <h6 class="m-0 font-weight-bold text-primary">제목</h6>
                                 <%=boardDetail.getBoard_subject() %>
-                                <br><br>
-                                <h6 class="m-0 font-weight-bold text-primary">게시글 내용</h6><br>
-                                <%=boardDetail.getBoard_content() %><br><br>
+                                <br><br><br><br><br>
+                                <h6 class="m-0 font-weight-bold text-primary">내용</h6>
+                                <%=boardDetail.getBoard_content() %>
+                                <br><br><br><br><br>
                             </div>
                         </div>
                     </div>
+
+					<form action ="http://localhost:8080/boardweb/comment" method="post">
+					<div class="card shadow mb-4">
+                        <!-- Card Header - Accordion -->
+                        <input type="hidden" name="boardNum" value="<%=boardDetail.getBoard_num() %>">
+                        <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse"
+                            role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                            <h6 class="m-0 font-weight-bold text-primary">댓글 쓰기</h6>
+                        </a>
+                        <!-- Card Content - Collapse -->
+                        <div class="collapse show" id="collapseCardExample">
+                            <div class="card-body">
+                                <textarea id="comment" name="commentContent" rows="4" cols="50" placeholder="댓글을 입력하세요" style="border:none; outline:none"></textarea><br>
+                            </div>
+                            <button type="submit" style="border:0; margin:10px;padding:10px;">댓글 작성</button>
+                        </div>
+                    </div>
+                    </form>
+					<%
+				    int idx = 1;
+                   	if (commentList != null) {
+                   		for (CommentVO o : commentList) {
+                   			String commentNum = o.getComment_num() +"";
+                   			System.out.println(commentNum);
+                   			String commentId = o.getComment_id();
+                   			String commentContent = o.getComment_content();
+                   			String commentDate = o.getComment_date();
+					%>
+					<div class="card shadow mb-4" id="commentBox<%=idx %>">
+                        <div class="card-header py-3">
+                        	<input type="hidden" id="commentNum<%=idx %>" value="<%=commentNum %>">
+                        	<%if (commentId.equals(memberInfo.getMember_id())) {%>
+                            <button type="button" id="modifybtn<%=idx %>" onclick="modify_review(<%=idx %>)" style="border:0; margin:5px;padding:5px;">수정</button>
+                            <button type="button" id="deletebtn<%=idx %>" onClick="delete_review(<%=idx %>)" style="border:0; margin:5px;padding:5px;">삭제</button>
+                            <%} %>
+                            
+                            &ensp;&ensp;&ensp; 마지막으로 수정한 날짜: <%=boardDetail.getBoard_date() %>&ensp;
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <h6 class="m-0 font-weight-bold text-primary">id: <%=commentId%></h6>
+                                <br><br>
+                                <input type="text" id="txtfield<%=idx%>" disabled="true" value="<%=commentContent %>" style="border:none; outline:none">
+                                <br>
+                            </div>
+                            <p><button type="button" id="btn-confirm<%=idx%>" class="btnmodify" onclick="modify_confirm(<%=idx%>)">confirm</button></p>
+							<script>
+								$('.btnmodify').hide()
+								function modify_review(text) {
+								    console.log(text)
+								 	$("#txtfield"+text).attr("disabled", false)
+								    $("#btn-confirm"+text).show()
+								    $("#modifybtn"+text).hide()
+								    $("#deletebtn"+text).hide()
+								}
+								
+
+							</script>
+                        </div>
+                    </div>
+                    <%
+                        	idx+=1;
+                     	}
+                     }
+                     %>
 
                 </div>
                 <!-- /.container-fluid -->

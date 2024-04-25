@@ -36,7 +36,6 @@
 <body id="page-top">
 	<%
 		MemberVO memberInfo = (MemberVO)session.getAttribute("memberInfo");
-    	System.out.println(memberInfo);
     	List<BoardVO> vo = (List<BoardVO>)request.getAttribute("boardList");
 	%>
     <!-- Page Wrapper -->
@@ -94,7 +93,7 @@
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
                                 aria-labelledby="userDropdown">
-                                <a class="dropdown-item" href="../member/profile.jsp">
+                                <a class="dropdown-item" href="http://localhost:8080/boardweb/profile?param1=<%=memberInfo.getMember_id()%>">
                                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                                     내 프로필
                                 </a>

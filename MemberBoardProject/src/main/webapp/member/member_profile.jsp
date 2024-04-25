@@ -4,7 +4,11 @@
 <html lang="en">
 
 <head>
-
+	<!-- jQuery에 대한 CDN -->
+	<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+	<script src="resources/js/comment-update.js"></script>
+	<script src="resources/js/comment-delete.js"></script>
+	
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -30,7 +34,6 @@
 <body id="page-top">
 	<%
 		MemberVO memberInfo = (MemberVO)session.getAttribute("memberInfo");
-    	BoardVO boardDetail = (BoardVO)request.getAttribute("boardDetail");
 	%>
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -82,7 +85,7 @@
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small"><%=memberInfo.getMember_id() %>님, 환영합니다!</span>
                                 <img class="img-profile rounded-circle"
-                                    src="../resources/img/undraw_profile.jpg">
+                                    src="resources/img/undraw_profile.jpg">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -92,7 +95,7 @@
                                     내 프로필
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="http://localhost:8080/boardweb/logout" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     로그아웃
                                 </a>
@@ -106,34 +109,33 @@
 
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
-
-                    <!-- Page Heading -->
-                    <h1 class="h3 mb-2 text-gray-800">게시글 수정</h1>
-					<a href="http://localhost:8080/boardweb/list">게시글 목록으로 가기</a>			
-                    <!-- DataTales Example -->
-                    <div class="card shadow mb-4">
-                        <div class="card-header py-3">
-
-                            <div class="card-header py-3">
-                            id: <%=boardDetail.getBoard_id() %>마지막으로 수정한 날짜: <%=boardDetail.getBoard_date() %>board_id : <%=boardDetail.getBoard_num() %>
+                
+					<h1 class="h3 mb-2 text-gray-800">내 정보 수정</h1>
+					<a href="http://localhost:8080/boardweb/list">게시글 목록으로 가기</a>	
+					
+					<form action ="http://localhost:8080/boardweb/memberupdate" method="post">
+					<div class="card shadow mb-4">
+                        <a href="#collapseCardExample" class="d-block card-header py-3" data-toggle="collapse"
+                            role="button" aria-expanded="true" aria-controls="collapseCardExample">
+                            <h6 class="m-0 font-weight-bold text-primary">내 정보</h6>
+                        </a>
+                        <!-- Card Content - Collapse -->
+                        <div class="collapse show" id="collapseCardExample">
+                            <div class="card-body">
+                            	이름<br><textarea id="memberInfo" name="memberName" rows="1" cols="50" style="border:none; outline:none"><%=memberInfo.getMember_name() %></textarea><br><br>
+                            	아이디<br><textarea id="memberInfo" name="memberId" rows="1" cols="50" style="border:none; outline:none"><%=memberInfo.getMember_id() %></textarea><br><br>
+                            	패스워드<br><textarea id="memberInfo" name="memberPw" rows="1" cols="50" style="border:none; outline:none"><%=memberInfo.getMember_pw() %></textarea><br><br>
+                                나이<br><textarea id="memberInfo" name="memberAge" rows="1" cols="50" style="border:none; outline:none"><%=memberInfo.getMember_age() %></textarea><br><br>
+                            	성별<br><textarea id="memberInfo" name="memberGender" rows="1" cols="50" style="border:none; outline:none"><%=memberInfo.getMember_gender() %></textarea><br><br>
                             </div>
-                        </div>
-                        
-                        <div class="card-body">
-                            <div class="table-responsive">
-                            	<form class="table table-bordered" action="http://localhost:8080/boardweb/update" method="post">
-                            	<input type="hidden" name="boardNum" value="<%=boardDetail.getBoard_num() %>">
-                                <h6 class="m-0 font-weight-bold text-primary">제목 수정</h6><br>
-                                <input type="text" id="boardSubject" placeholder="<%=boardDetail.getBoard_subject() %>"
-                                            name="boardSubject" style="width:1000px;height:50px; padding: 1.25rem; border:none; outline:none"><br><br>
-                                <h6 class="m-0 font-weight-bold text-primary">내용 수정</h6><br>
-                                <input type="text" id="boardContent" placeholder="<%=boardDetail.getBoard_content() %>"
-                                            name="boardContent" style="width:1000px;height:300px; padding: 1.25rem; border:none; outline:none"><br><br>
-                                <button type="submit">수정</button>
-                                </form>
-                            </div>
+                            <button type="submit" style="border:0; margin:10px;padding:10px;">수정</button>
+                            <button onclick="location.href='/member/quit'">회원탈퇴</button>
+                
                         </div>
                     </div>
+                    </form>
+                    
+	
 
                 </div>
                 <!-- /.container-fluid -->
@@ -168,7 +170,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <h5 class="modal-title" id="exampleModalLabel">로그아웃 하시겠습니까?</h5>
                     <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">×</span>
                     </button>
