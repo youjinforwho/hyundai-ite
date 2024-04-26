@@ -36,7 +36,7 @@ public class MemberProfileController extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(true);
 		request.setCharacterEncoding("UTF-8");
-		int memberId = Integer.parseInt(request.getParameter("param1"));
+		String memberId = request.getParameter("param1");
 		
 		//member 정보
 		MemberVO memberInfo = new MemberVO();

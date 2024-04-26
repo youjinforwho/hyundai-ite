@@ -13,4 +13,5 @@ public class MemberVO {
 	private String member_name;
 	private int member_age;
 	private String member_gender;
+	private String member_quit;
 }

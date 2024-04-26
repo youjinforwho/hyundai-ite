@@ -118,11 +118,11 @@
                             	<form class="table table-bordered" action="http://localhost:8080/boardweb/create" method="post">
                                 <h6 class="m-0 font-weight-bold text-primary">게시글 제목</h6><br>
                                 <input type="text" id="boardSubject"
-                                            name="boardSubject" style="width:1000px;height:50px; padding: 1.25rem;"><br><br>
+                                            name="boardSubject" style="width:1000px;height:50px; padding: 1.25rem; border:none; outline:none;"><br><br>
                                 <h6 class="m-0 font-weight-bold text-primary">게시글 내용</h6><br>
                                 <input type="text" id="boardContent"
-                                            name="boardContent" style="width:1000px;height:300px; padding: 1.25rem;"><br><br>
-                                <button type="submit">제출</button>
+                                            name="boardContent" style="width:1000px;height:300px; padding: 1.25rem; border:none; outline:none;"><br><br>
+                                <button type="submit" style="border:0; margin:5px;padding:5px;">제출</button>
                                 </form>
                             </div>
                         </div>

@@ -129,12 +129,12 @@
                             	성별<br><textarea id="memberInfo" name="memberGender" rows="1" cols="50" style="border:none; outline:none"><%=memberInfo.getMember_gender() %></textarea><br><br>
                             </div>
                             <button type="submit" style="border:0; margin:10px;padding:10px;">수정</button>
-                            <button onclick="location.href='/member/quit'">회원탈퇴</button>
+                            
                 
                         </div>
                     </div>
                     </form>
-                    
+ 					<button onclick="location.href='/boardweb/quit'" style="border:0; margin:10px;padding:10px;">회원탈퇴</button>                   
 	
 
                 </div>

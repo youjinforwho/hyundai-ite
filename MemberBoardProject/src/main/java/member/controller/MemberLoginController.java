@@ -44,13 +44,20 @@ public class MemberLoginController extends HttpServlet {
 		MemberVO memberInfo = memberService.checkPasswordIsTrue(vo);
 		
 		HttpSession session = request.getSession(true);
-		session.setAttribute("memberInfo", memberInfo);
-		BoardService boardService = new BoardService();
-		List<BoardVO> boardList = boardService.updateBoardList();
-		request.setAttribute("boardList", boardList);
 		
-		RequestDispatcher rd = request.getRequestDispatcher("/board/board_view.jsp");
-		rd.forward(request, response);
+		if (memberInfo != null) {
+			session.setAttribute("memberInfo", memberInfo);
+			BoardService boardService = new BoardService();
+			List<BoardVO> boardList = boardService.updateBoardList();
+			request.setAttribute("boardList", boardList);
+			
+			RequestDispatcher rd = request.getRequestDispatcher("/board/board_view.jsp");
+			rd.forward(request, response);
+		} else {
+			RequestDispatcher rd = request.getRequestDispatcher("/member/login.jsp");
+			rd.forward(request, response);
+		}
+		
 
 	}
 

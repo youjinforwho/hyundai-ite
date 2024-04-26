@@ -22,7 +22,7 @@ public class MemberDAO {
 		
 		return result;
 	}
-	public MemberVO select(int memberId, SqlSession session) throws Exception {
+	public MemberVO select(String memberId, SqlSession session) throws Exception {
 		MemberVO result = session.selectOne("member.searchMemberProfile", memberId);
 		return result;
 	}
@@ -38,4 +38,6 @@ public class MemberDAO {
 		result = session.update("member.updateMemberProfile", memberInfo);
 		return result;
 	}
+
+	
 }

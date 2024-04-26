@@ -92,7 +92,7 @@
                                     내 프로필
                                 </a>
                                 <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                <a class="dropdown-item" href="http://localhost:8080/boardweb/logout" data-toggle="modal" data-target="#logoutModal">
                                     <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
                                     로그아웃
                                 </a>
@@ -115,7 +115,11 @@
                         <div class="card-header py-3">
 
                             <div class="card-header py-3">
-                            id: <%=boardDetail.getBoard_id() %>마지막으로 수정한 날짜: <%=boardDetail.getBoard_date() %>board_id : <%=boardDetail.getBoard_num() %>
+                            <%
+                            String boardId = boardDetail.getBoard_id();
+                            if (memberInfo.getMember_quit() == "Y") boardId = "(알수없음)";
+                            %>
+                            아이디: <%=boardId %>&ensp;&ensp;&ensp;마지막으로 수정한 날짜: <%=boardDetail.getBoard_date() %>
                             </div>
                         </div>
                         
@@ -125,11 +129,11 @@
                             	<input type="hidden" name="boardNum" value="<%=boardDetail.getBoard_num() %>">
                                 <h6 class="m-0 font-weight-bold text-primary">제목 수정</h6><br>
                                 <input type="text" id="boardSubject" placeholder="<%=boardDetail.getBoard_subject() %>"
-                                            name="boardSubject" style="width:1000px;height:50px; padding: 1.25rem; border:none; outline:none"><br><br>
+                                            name="boardSubject" style="width:1000px;height:50px; padding: 1.25rem; border:none; outline:none;"><br><br>
                                 <h6 class="m-0 font-weight-bold text-primary">내용 수정</h6><br>
                                 <input type="text" id="boardContent" placeholder="<%=boardDetail.getBoard_content() %>"
-                                            name="boardContent" style="width:1000px;height:300px; padding: 1.25rem; border:none; outline:none"><br><br>
-                                <button type="submit">수정</button>
+                                            name="boardContent" style="width:1000px;height:300px; padding: 1.25rem; border:none; outline:none;"><br><br>
+                                <button type="submit" style="border:0; margin:5px;padding:5px;">수정</button>
                                 </form>
                             </div>
                         </div>

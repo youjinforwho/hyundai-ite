@@ -149,6 +149,8 @@
                                     			String boardId = o.getBoard_id();
                                     			String boardDate = o.getBoard_date();
                                     			int boardNum = o.getBoard_num();
+                                    			if (o.getBoard_subject().equals("")) boardSubject = "제목없음"; 
+                                    			if (o.getBoard_quit().equals("Y")) boardId = "(알수없음)";
     									%>
                                         <tr>
                                         	<td><%=idx%></td>

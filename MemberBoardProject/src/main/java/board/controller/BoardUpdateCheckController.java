@@ -51,6 +51,7 @@ public class BoardUpdateCheckController extends HttpServlet {
 			System.out.println("수정할 수 없습니다.");
 			RequestDispatcher rd = request.getRequestDispatcher("/board/board_detail.jsp");
 			rd.forward(request, response);
+			response.sendRedirect(request.getContextPath() + "/board/board_detail.jsp?boardDetail=" + boardNum);
 		}
 		
 	}

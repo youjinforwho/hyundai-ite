@@ -52,11 +52,11 @@
                                 </div>
                                 <div class="form-group">
                                     <input type="text" class="form-control form-control-user" id="exampleInputEmail"
-                                        name="age" placeholder="나이 입력">
-              						<label for="male">남성:</label>
-							        <input type="radio" class="form-control form-control-user" id="male" name="gender" value="male">
-							        <label for="female">여성:</label>
-							        <input type="radio" class="form-control form-control-user" id="female" name="gender" value="female">
+                                        name="age" placeholder="나이 입력"><br>
+              						<label for="male">남자</label>
+							        <input type="radio" class="form-control form-control-user" id="male" name="gender" value="male" style="width: 10px; display: inline;vertical-align: middle;"  >
+							        &ensp;&ensp;&ensp;&ensp;&ensp;<label for="female">여자</label>
+							        <input type="radio" class="form-control form-control-user" id="female" name="gender" value="female" style="width: 10px; display: inline;vertical-align: middle;">
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">

@@ -37,13 +37,13 @@ public class BoardContentDeleteController extends HttpServlet {
 		HttpSession session = request.getSession(true);
 		request.setCharacterEncoding("UTF-8");
 		
-		MemberVO memberId = (MemberVO)session.getAttribute("memberInfo");
+		MemberVO memberInfo = (MemberVO)session.getAttribute("memberInfo");
 		String boardId = request.getParameter("param1");
 		int boardNum = Integer.parseInt(request.getParameter("param2"));
 		
 		BoardService service = new BoardService();
 		
-		if (memberId.getMember_id().equals(boardId)) {
+		if (memberInfo.getMember_id().equals(boardId)) {
 			int ifBoardIsDeleted = 0;
 			
 			ifBoardIsDeleted = service.deleteBoardContent(boardNum);

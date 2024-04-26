@@ -12,15 +12,20 @@
 	<select id="updateNewBoard"
 		resultType="BoardVO">
 		<![CDATA[
-			SELECT *
-			FROM board
+			SELECT B.*, M.member_quit board_quit
+			FROM member M
+			INNER JOIN board B
+			ON B.board_id = M.member_id
+			ORDER BY board_date DESC;
 		]]>
 	</select>
 	<select id="searchDetailView" parameterType="int"
 		resultType="BoardVO">
-		<![CDATA[
-			SELECT *
-			FROM board
+		<![CDATA[			
+			SELECT B.*, M.member_quit board_quit
+			FROM member M
+			INNER JOIN board B
+			ON B.board_id = M.member_id
 			WHERE board_num = ${board_num}
 		]]>
 	</select>

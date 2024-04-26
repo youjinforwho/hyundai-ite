@@ -64,7 +64,7 @@ public class CreateCommentController extends HttpServlet {
 		comment.setComment_date(formattedDateTime);
 
 		CommentService commentService = new CommentService();
-		int result = commentService.createNewComment(comment);
+		commentService.createNewComment(comment);
 		List<CommentVO> commentList = commentService.findAllComments(boardNum);
 		request.setAttribute("commentList", commentList);
 		
@@ -75,6 +75,7 @@ public class CreateCommentController extends HttpServlet {
 		
 		RequestDispatcher rd = request.getRequestDispatcher("/board/board_detail.jsp");
 		rd.forward(request, response);
+		response.sendRedirect(request.getContextPath() + "/board/board_detail.jsp?boardDetail=" + boardNum);
 	}
 
 }

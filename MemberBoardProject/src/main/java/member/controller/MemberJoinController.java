@@ -51,7 +51,7 @@ public class MemberJoinController extends HttpServlet {
 		String memberId = request.getParameter("memberId");
 		String password = request.getParameter("password");
 
-		MemberVO memberInfo = new MemberVO(memberId, password, firstName+lastName, age, gender);
+		MemberVO memberInfo = new MemberVO(memberId, password, firstName+lastName, age, gender, "N");
 		MemberService service = new MemberService();
 		int updateCheck = service.assignUserToMember(memberInfo);
 		

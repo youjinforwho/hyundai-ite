@@ -120,10 +120,18 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
+                        <%
+                        
+                        if (memberInfo.getMember_id().equals(boardDetail.getBoard_id())) { %>
                             <a href="http://localhost:8080/boardweb/check?param1=<%=boardDetail.getBoard_id()%>&param2=<%=boardDetail.getBoard_num() %>">수정</a>
                             <a href="http://localhost:8080/boardweb/delete?param1=<%=boardDetail.getBoard_id()%>&param2=<%=boardDetail.getBoard_num() %>">삭제</a>
+                        <%}%>    
+                        <%
+                        String boardId = boardDetail.getBoard_id();
+                        if (boardDetail.getBoard_quit().equals("Y")) boardId = "(알수없음)";
+                        %>
                             <a style="padding: 1.25rem; text-align: right">
-                            id: <%=boardDetail.getBoard_id() %>&ensp; 마지막으로 수정한 날짜: <%=boardDetail.getBoard_date() %>&ensp;
+                            아이디: <%=boardId %>&ensp;&ensp;&ensp; 마지막으로 수정한 날짜: <%=boardDetail.getBoard_date() %>&ensp;
                             </a>
                         </div>
                         <div class="card-body">
@@ -162,6 +170,7 @@
                    			String commentNum = o.getComment_num() +"";
                    			System.out.println(commentNum);
                    			String commentId = o.getComment_id();
+                   			if (o.getComment_quit().equals("Y")) commentId = "(알수없음)";
                    			String commentContent = o.getComment_content();
                    			String commentDate = o.getComment_date();
 					%>
@@ -179,10 +188,10 @@
                             <div class="table-responsive">
                                 <h6 class="m-0 font-weight-bold text-primary">id: <%=commentId%></h6>
                                 <br><br>
-                                <input type="text" id="txtfield<%=idx%>" disabled="true" value="<%=commentContent %>" style="border:none; outline:none">
+                                <textarea type="text" id="txtfield<%=idx%>" disabled="true" value="<%=commentContent %>" style="border:none; outline:none; width : 1000px"><%=commentContent %></textarea>
                                 <br>
                             </div>
-                            <p><button type="button" id="btn-confirm<%=idx%>" class="btnmodify" onclick="modify_confirm(<%=idx%>)">confirm</button></p>
+                            <p><button type="button" id="btn-confirm<%=idx%>" class="btnmodify" onclick="modify_confirm(<%=idx%>)" style="border:0; margin:5px;padding:5px;">confirm</button></p>
 							<script>
 								$('.btnmodify').hide()
 								function modify_review(text) {

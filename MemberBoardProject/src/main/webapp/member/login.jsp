@@ -77,7 +77,7 @@
                                         <a class="small" href="forgot-password.html">패스워드 잊음</a>
                                     </div>
                                     <div class="text-center">
-                                        <a class="small" href="join.jsp">계정이 없으신가요? 회원가입하기</a>
+                                        <a class="small" onClick="location.href='/boardweb/member/join.jsp'">계정이 없으신가요? 회원가입하기</a>
                                     </div>
                                 </div>
                             </div>

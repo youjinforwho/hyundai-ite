@@ -12,9 +12,11 @@
 	<select id="findAllComments" parameterType="int"
 		resultType="CommentVO">
 		<![CDATA[
-			SELECT *
-			FROM comment
-			WHERE board_num = ${board_num}
+			SELECT C.*, M.member_quit comment_quit
+			FROM member M
+			INNER JOIN comment C
+			ON C.comment_id = M.member_id
+			WHERE C.board_num = ${board_num};
 		]]>
 	</select>
 

@@ -60,8 +60,10 @@ public class BoardContentUpdateController extends HttpServlet {
 			System.out.println("수정 실패 ...");
 		}
 		request.setAttribute("boardDetail", boardDetail);
+		
 		RequestDispatcher rd = request.getRequestDispatcher("/board/board_detail.jsp");
 		rd.forward(request, response);
+		response.sendRedirect(request.getContextPath() + "/board/board_detail.jsp?boardDetail=" + boardNum);
 	}
 
 }

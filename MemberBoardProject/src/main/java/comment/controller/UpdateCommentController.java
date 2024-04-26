@@ -49,8 +49,7 @@ public class UpdateCommentController extends HttpServlet {
 		
 		updateComment = commentService.viewCommentDetail(commentNum);
 		updateComment.setComment_content(commentContent);
-		System.out.println(updateComment);
-		System.out.println(commentService);
+
 		int updateCheck = commentService.updateCommentContent(updateComment);
 		if (updateCheck != 0) {
 			System.out.println("성공적으로 수정되었어요!");

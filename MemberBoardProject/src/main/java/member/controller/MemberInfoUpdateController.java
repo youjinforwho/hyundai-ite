@@ -49,7 +49,7 @@ public class MemberInfoUpdateController extends HttpServlet {
 		String memberPw = request.getParameter("memberPw");
 		int memberAge = Integer.parseInt(request.getParameter("memberAge"));
 		String memberGender = request.getParameter("memberGender");
-		MemberVO memberInfo = new MemberVO(memberId, memberPw, memberName, memberAge, memberGender);
+		MemberVO memberInfo = new MemberVO(memberId, memberPw, memberName, memberAge, memberGender, "N");
 		MemberService service = new MemberService();
 
 		int updateCheck = service.updateMemberProfile(memberInfo);

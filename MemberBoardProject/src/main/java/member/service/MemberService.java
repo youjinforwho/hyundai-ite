@@ -48,7 +48,7 @@ public class MemberService {
 		return result;
 	}
 
-	public MemberVO viewMemberProfile(int memberId) {
+	public MemberVO viewMemberProfile(String memberId) {
 		SqlSession session = factory.openSession();
 		MemberVO result = null;
 		try {
@@ -62,6 +62,21 @@ public class MemberService {
 	}
 
 	public int updateMemberProfile(MemberVO memberInfo) {
+		SqlSession session = factory.openSession();
+		int result = 0;
+		try {
+			result = dao.update(memberInfo, session);
+		} catch (Exception e) {
+			System.out.println(e);
+			session.rollback();
+		} finally {
+			session.commit();
+			session.close();
+		}
+		return result;
+	}
+
+	public int disqulifyOfMember(MemberVO memberInfo) {
 		SqlSession session = factory.openSession();
 		int result = 0;
 		try {

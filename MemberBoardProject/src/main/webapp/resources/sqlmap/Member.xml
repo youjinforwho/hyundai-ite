@@ -2,12 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
 <mapper namespace="member">
 
-	<select id="searchMemberProfile" parameterType="int"
+	<select id="searchMemberProfile" parameterType="String"
 		resultType="MemberVO">
 		<![CDATA[
 			SELECT *
 			FROM member
-			WHERE member_id = ${member_id}
+			WHERE member_id = #{member_id}
 		]]>
 	</select>
 	
@@ -18,6 +18,7 @@
 			FROM member
 			WHERE member_id = #{member_id}
 			AND member_pw = #{member_pw}
+			AND member_quit = "N"
 		]]>
 	</select>
 	<insert id="insertMemberInfo" parameterType="MemberVO">
@@ -34,7 +35,8 @@
 			SET member_pw = #{member_pw},
 				member_name = #{member_name},
 			    member_age = ${member_age},
-			    member_gender = #{member_gender}
+			    member_gender = #{member_gender},
+			    member_quit = #{member_quit}
 			WHERE member_id = #{member_id}
 		]]>
 	</update>

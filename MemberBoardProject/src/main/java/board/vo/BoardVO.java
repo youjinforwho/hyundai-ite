@@ -13,4 +13,5 @@ public class BoardVO {
 	private String board_subject;
 	private String board_content;
 	private String board_date;
+	private String board_quit;
 }
