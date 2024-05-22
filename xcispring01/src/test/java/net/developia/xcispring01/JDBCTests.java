@@ -34,6 +34,10 @@ public class JDBCTests {
 				"TIGER"
 				)){
 			log.info(con);
+			log.debug(con);
+			log.error(con);
+			log.warn(con);
+			log.fatal(con);
 		} catch(Exception e) {
 			fail(e.getMessage());
 		}
