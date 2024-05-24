@@ -3,6 +3,26 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="net.developia.mapper.BoardMapper">
+	<sql id="criteria">
+		<trim prefix="(" suffix=") AND " prefixOverrides="OR">
+			<foreach item='type' collection="typeArr">
+				<trim prefix="OR">
+					<choose>
+						<when test="type == 'T'.toString()">
+							title like '%'||#{keyword}||'%'
+						</when>
+						<when test="type == 'C'.toString()">
+							content like '%'||#{keyword}||'%'
+						</when>
+						<when test="type == 'W'.toString()">
+							writer like '%'||#{keyword}||'%'
+						</when>
+					</choose>
+				</trim>
+			</foreach>
+		</trim>
+	</sql>
+	
 	<select id="getList" resultType="net.developia.domain.BoardVO">
 	<![CDATA[
 		SELECT bno, title, content, writer, regdate, updatedate 
@@ -11,6 +31,31 @@
 		ORDER BY bno desc
 	]]> 
 	</select>
+	<select id="getListWithPaging" resultType="net.developia.domain.BoardVO">
+	<![CDATA[
+		SELECT bno, title, content, writer, regdate, updatedate 
+		FROM (
+			SELECT /*+INDEX_DESC(tbl_board pk_board) */
+			rownum rn, bno, title, content, writer, regdate, updatedate
+			FROM tbl_board
+		WHERE
+	]]> 
+	<include refid="criteria"></include>
+		<![CDATA[
+			rownum <= #{pageNum} * #{amount}
+			)
+		WHERE rn > (#{pageNum} -1) * #{amount}
+		]]>
+	</select>
+	
+	<select id="getBoardsWithPagingWithOffset" resultType="BoardVO">
+    <![CDATA[
+      SELECT bno, title, content, writer, regdate, updateDate
+       FROM tbl_board
+       ORDER BY bno DESC
+       OFFSET (#{pageNum} - 1) * #{amount} ROWS FETCH NEXT #{amount} ROWS ONLY
+   ]]>
+   </select>
 	
 	<insert id="insert">
 		insert into tbl_board(bno, title, content, writer)
@@ -41,4 +86,11 @@
 		updateDate=sysdate
 		where bno=#{bno}
 	</update>
+	
+	<select id="getTotalCount" resultType="int">
+		SELECT count(*) FROM tbl_board 
+		WHERE
+		<include refid="criteria"></include>
+		bno > 0
+	</select>
 </mapper>
