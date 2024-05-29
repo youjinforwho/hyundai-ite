@@ -143,7 +143,7 @@
        let bnoValue = `<c:out value='${board.bno}'/>`;
       let replyUL = $(".chat");
    
-      showList(1);
+      showList(-1);
       
       function showList(page) {
          
@@ -219,7 +219,7 @@
              modal.modal("hide");
              
              // showList(1);
-             showList(-1);
+             showList(1);
              
            });
            

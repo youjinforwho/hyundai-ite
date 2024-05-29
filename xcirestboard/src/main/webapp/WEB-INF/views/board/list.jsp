@@ -36,7 +36,7 @@
                   <tr>
                      <td><c:out value="${board.bno}" /></td>
                      <td><a class='move' href='<c:out value="${board.bno}"/>'>
-                           <c:out value="${board.title}" />
+                           <c:out value="${board.title}" />  <b>[  <c:out value="${board.replyCnt}" />  ]</b>
                      </a></td>
                      <td><c:out value="${board.writer}" /></td>
                      <td><fmt:formatDate pattern="yyyy-MM-dd"
@@ -223,7 +223,7 @@
                            }
 
                            searchForm.find("input[name='pageNum']")
-                                 .val("1");
+                                 .val("1"); // 써볼랭 ㅎㅎㅎㅎ
                            e.preventDefault();
 
                            searchForm.submit();
